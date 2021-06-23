@@ -1,0 +1,14 @@
+.vscode/
+data/
+results/
+results
+__pycache__/*
+*__pycache__
+*.pth
+*.pyc
+.ipynb_checkpoints/
+save/
+save
+materials/*
+visualization/data/
+

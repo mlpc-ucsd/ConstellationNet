@@ -1,0 +1,38 @@
+name: conv4-classifier-mini
+train_dataset: mini-imagenet
+train_dataset_args: {split: train, aug: lee}
+val_dataset: mini-imagenet
+val_dataset_args: {split: train_phase_val, aug: lee}
+fs_dataset: mini-imagenet
+fs_dataset_args: {split: test, aug: lee}
+eval_fs_epoch: 5
+model: classifier-sideout
+model_args:
+    encoder: convnet4-featcluster-minibatch-sideout-classifier
+    encoder_args:  {
+        use_feat_cluster_list: [true, true, true, true],
+        use_self_attention_list: [false, false, true, true],
+        self_attention_kwargs: {
+           embedding_size: 64, # equal to number of clusters
+           multi_head: 8,
+           positional_encoding: 'sine_pe',
+           pre_normalize: false,
+           },
+        feat_cluster_kwargs: {
+            K: 100.0, 
+            num_clusters: 64,
+            fix_init: true,
+            channels: 64, 
+            V_count_init: 1.0,
+            
+        },
+        out_feat_flatten: true,
+        avgpool: true
+    }
+    classifier: linear-classifier 
+    classifier_args: {n_classes: 64}
+batch_size: 128
+max_epoch: 100
+opt: long # can be long, lee, long-0.01, adam
+save_epoch: 5
+#visualize_datasets: true

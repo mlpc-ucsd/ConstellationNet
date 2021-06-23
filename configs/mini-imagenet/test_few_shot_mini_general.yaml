@@ -1,0 +1,5 @@
+dataset: mini-imagenet
+dataset_args: {split: test, aug: lee} 
+
+load_encoder: ./save/some-experiment/max-va.pth
+load: 

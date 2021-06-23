@@ -1,0 +1,74 @@
+name: conv4featcluster-minibatch-sideout-classifier-ybranch-cifar-fs-TTTT-self-uv_dist-FFTT-att-out_conv-stage2-firstTconcat-train3shot-60epoch-sine_pe-pre_normF-init_rp-8_head-param_reduced
+train_dataset: cifar-fs
+train_dataset_args: {split: train, aug: lee}
+val_dataset: cifar-fs
+val_dataset_args: {split: test, aug: lee}
+
+fs_dataset_train: cifar-fs
+fs_dataset_train_args: {split: train, aug: lee}
+fs_dataset_val: cifar-fs
+fs_dataset_val_args: {split: test, aug: lee}
+
+model: classifier-sideout-class-meta
+model_args:
+    encoder: convnet4-featcluster-minibatch-sideout-classifier-ybranch-param-reduced
+    encoder_args:  {
+        stem_use_feat_cluster_list: [true, true],
+        branch1_use_feat_cluster_list: [true, true],
+        branch2_use_feat_cluster_list: [false, false],
+        stem_use_self_attention_list: [false, false],
+        branch1_use_self_attention_list: [true, true],
+        branch2_use_self_attention_list: [false, false],
+        self_attention_kwargs: {
+           head: 8,
+           positional_encoding: 'sine',
+           attention_loc: 'uv_dist',
+           pre_normalize: false,
+           },
+        feat_cluster_kwargs: {
+            max_type: 'softmax', 
+            cluster_type: 'dynamic-routing', 
+            init_type: 'rp',
+            iterations: 1, 
+            K: 100.0, 
+            num_clusters: 64,
+            detach_coeff: true,
+            eps: 0.01,
+            fix_init: true,
+            channels: 64, 
+            normalize_input: true, 
+            normalize_init: true, 
+            show_cur_iter: false, 
+            alpha: 1.0, 
+            minibatch: 'sculley-like',
+            V_count_init: 1.0,
+            detach_uv_dist: false,
+        },
+        feat_cluster_type: 'out_conv', # can be 'input3x3', 'input', 'out_conv', 'out_conv_identity', 'out_conv_another3x3conv'
+        out_feat_flatten: true,
+        avgpool: true,
+        y_branch_stage: 2
+    }
+    classifier: linear-classifier 
+    classifier_args: {n_classes: 64}
+    sideout_info: []
+
+train_branch_1: True
+train_branch_2: True
+eval_val: True
+eval_fs: True
+
+# classification hyperparameters
+batch_size: 128
+max_epoch: 60
+
+# few-shot hyperparameters
+n_way: 5
+n_shot: 1
+n_train_shot: 3
+n_query: 6
+train_batches: 1000
+ep_per_batch: 8
+
+opt: lee
+save_epoch: 5
