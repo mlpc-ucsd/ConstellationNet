@@ -1,13 +1,13 @@
-name: conv4featcluster-minibatch-sideout-classifier-ybranch-fc100-TTTT-self-uv_dist-FFTT-att-out_conv-stage2-firstTconcat-train7shot-60epoch-sine_pe-pre_normF-init_rp-8_head-param_reduced
+name: conv4-ybranch-fc100
 train_dataset: fc100
 train_dataset_args: {split: train, aug: lee}
 val_dataset: fc100
-val_dataset_args: {split: test, aug: lee}
+val_dataset_args: {split: val, aug: lee}
 
 fs_dataset_train: fc100
 fs_dataset_train_args: {split: train, aug: lee}
 fs_dataset_val: fc100
-fs_dataset_val_args: {split: test, aug: lee}
+fs_dataset_val_args: {split: val, aug: lee}
 
 model: classifier-sideout-class-meta
 model_args:
@@ -20,33 +20,18 @@ model_args:
         branch1_use_self_attention_list: [true, true],
         branch2_use_self_attention_list: [false, false],
         self_attention_kwargs: {
-           head: 8,
-           positional_encoding: 'sine',
-           attention_loc: 'uv_dist',
+           multi_head: 8,
+           positional_encoding: 'sine_pe',
+           embedding_size: 64,
            pre_normalize: false,
            },
-        feat_cluster_kwargs: {
-            max_type: 'softmax', 
-            cluster_type: 'dynamic-routing',
-            init_type: 'rp',
-            iterations: 1, 
+        feat_cluster_kwargs: { 
             K: 100.0, 
             num_clusters: 64,
-            detach_coeff: true,
-            eps: 0.01,
             fix_init: true,
             channels: 64, 
-            normalize_input: true, 
-            normalize_init: true, 
-            show_cur_iter: false, 
-            alpha: 1.0, 
-            minibatch: 'sculley-like',
             V_count_init: 1.0,
-            detach_uv_dist: false,
         },
-        feat_cluster_type: 'out_conv', # can be 'input3x3', 'input', 'out_conv', 'out_conv_identity', 'out_conv_another3x3conv'
-        out_feat_flatten: true,
-        avgpool: true,
         y_branch_stage: 2
     }
     classifier: linear-classifier 

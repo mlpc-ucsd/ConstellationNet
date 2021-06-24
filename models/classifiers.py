@@ -134,11 +134,11 @@ class Classifier(nn.Module):
         # Few-shot classifier (for meta test).
         def meta_test_forward(x_shot, x_query, branch, sideout=False):
             # Get shapes and reshape shot and query.
-            shot_shape = x_shot.shape[:-3]
-            query_shape = x_query.shape[:-3]
+            shot_shape = x_shot.shape[:-3] # (#task,#way(cls),#shot)
+            query_shape = x_query.shape[:-3]# (#task,#way(cls)*#shot)
             img_shape = x_shot.shape[-3:]
-            x_shot = x_shot.view(-1, *img_shape)
-            x_query = x_query.view(-1, *img_shape)
+            x_shot = x_shot.view(-1, *img_shape) #Shape: [#task*#way(cls)*#shot, C, H, W]
+            x_query = x_query.view(-1, *img_shape)#Shape: [#task*#way(cls)*#shot, C, H, W]
             x_shot_len = len(x_shot)
             x_query_len = len(x_query)
 
@@ -148,8 +148,8 @@ class Classifier(nn.Module):
                 # Output shot and query.
                 x_shot, x_query = x_tot[:x_shot_len], x_tot[-x_query_len:]
                 feat_shape = x_shot.shape[1:]
-                x_shot = x_shot.view(*shot_shape, *feat_shape)    # Keep feature shape.
-                x_query = x_query.view(*query_shape, *feat_shape)
+                x_shot = x_shot.view(*shot_shape, *feat_shape)    #Shape: [#task, #way(cls), #shot, C]
+                x_query = x_query.view(*query_shape, *feat_shape)  #Shape: [#task*#way(cls), #shot, C]
                 # Side output shot and query.
                 s_shot  = {k:v[  :x_shot_len].view(*shot_shape,  *v.shape[1:]) for k, v in s_tot.items()}
                 s_query = {k:v[-x_query_len:].view(*query_shape, *v.shape[1:]) for k, v in s_tot.items()}

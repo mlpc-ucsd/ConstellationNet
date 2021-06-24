@@ -2,9 +2,10 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch, math
 import copy
-
+from .models import register
     
-
+def _get_clones(module,num_layers):
+        return nn.ModuleList([copy.deepcopy(module) for i in range(num_layers)])
 
 class MHAtt(nn.Module):
     def __init__(self, embedding_size = 256, multi_head=1,dropout_ratio = 0.1):
@@ -75,9 +76,8 @@ class MHAtt(nn.Module):
 
 
 
-def _get_clones(module,num_layers):
-        return nn.ModuleList([copy.deepcopy(module) for i in range(num_layers)])
-    
+
+@register('constell-attention')    
 class Transformer(nn.Module):
     def __init__(self, dropout_ratio = 0.1, multi_head = 1, embedding_size = 256, pre_normalize=\
                  False, num_self_attention_layers = 1,**kwargs):

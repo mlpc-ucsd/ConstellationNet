@@ -1,4 +1,4 @@
-name: conv4-ybranch-mini-new
+name: conv4-ybranch-mini
 train_dataset: mini-imagenet
 train_dataset_args: {split: train, aug: lee}
 val_dataset: mini-imagenet

@@ -4,8 +4,6 @@ import torch.nn.functional as F
 
 from .models import register, make
 from .dropblock import DropBlock
-from .featcluster_minibatch import FeatureClusteringMinibatch
-from .self_attention import Transformer
 
 
 def conv3x3(in_planes, out_planes):
@@ -37,7 +35,7 @@ class MergeBlock(nn.Module):
         if self.use_self_attention:
             
             # Cell feature relation modeling layer
-            self.transformer = Transformer(**self.self_attention_kwargs)
+            self.transformer = make('constell-attention',**self.self_attention_kwargs)
             
             # Positional encoding layer
             self.pe = make(self.self_attention_kwargs['positional_encoding'],\
@@ -45,8 +43,10 @@ class MergeBlock(nn.Module):
             
          
         if self.use_feat_cluster:
+            
             # Feature clustering layer.
-            self.feat_cluster = FeatureClusteringMinibatch(**self.feat_cluster_kwargs)
+            self.feat_cluster = make('constell-clustering',**self.feat_cluster_kwargs)
+            
             # Merging layer.            
             self.merge = nn.Conv2d(out_channels + self.feat_cluster_kwargs['num_clusters'], out_channels, kernel_size=1, stride=1, padding=0, bias=False)  
                     
@@ -266,20 +266,15 @@ class ResNet12(nn.Module):
         # Feature average pooling 
         x = x.mean(-1).mean(-1)
         
-        # Feature flatten
-        out = x.view(x.shape[0], -1)
+        
 
         # Return if enable side output.
         if sideout:
-            return out, sideout_dict
+            return x, sideout_dict
         else:
-            return out
+            return x
 
 @register('resnet12-featcluster-minibatch-sideout-classifier-ybranch-param-reduced')
 def resnet12(**kwargs):
     return ResNet12([64, 128, 256, 290], **kwargs)
         
-        
-@register('resnet12-featcluster-minibatch-sideout-classifier-ybranch')
-def resnet12(**kwargs):
-    return ResNet12([64, 128, 256, 512], **kwargs)

@@ -2,8 +2,9 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from .models import register
 
-
+@register('constell-clustering')
 class FeatureClusteringMinibatch(nn.Module):
 
     def __init__(self,K=1.0,num_clusters=2, 

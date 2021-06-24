@@ -1,4 +1,4 @@
-name: res12featcluster-minibatch-sideout-classifier-ybranch-TFF-FFF-TTT-FFF-self-uv_dist-att-FFF-FFF-TTT-FFF-out_conv-stage2-firstTconcat-otherTconcat_regular-train3shot-60epoch-sine_pe-pre_normF-init_rp-param_reduced
+name: res12-ybranch-mini
 train_dataset: mini-imagenet
 train_dataset_args: {split: train, aug: lee}
 val_dataset: mini-imagenet
@@ -13,40 +13,25 @@ model: classifier-sideout-class-meta
 model_args:
     encoder: resnet12-featcluster-minibatch-sideout-classifier-ybranch-param-reduced
     encoder_args:  {
-        stem_use_feat_cluster_list: [[{use_feat_cluster: true, feat_cluster_type: 'out_conv', sideout_concat: true}, false, false], [false, false, false]],
+        stem_use_feat_cluster_list: [[true, false, false], [false, false, false]],
         branch1_use_feat_cluster_list: [[true, true, true], [false, false, false]],
         branch2_use_feat_cluster_list: [[false, false, false], [false, false, false]],
         stem_use_self_attention_list: [[false, false, false], [false, false, false]],
         branch1_use_self_attention_list: [[true, true, true], [false, false, false]],
         branch2_use_self_attention_list: [[false, false, false], [false, false, false]],
         self_attention_kwargs: {
-           head: 8,
-           positional_encoding: 'sine',
-           attention_loc: 'uv_dist',
+           multi_head: 8,
+           positional_encoding: 'sine_pe',
            pre_normalize: false,
+           embedding_size: 64,
            },
         feat_cluster_kwargs: {
-            max_type: 'softmax', 
-            cluster_type: 'dynamic-routing', 
-            init_type: 'rp', # rdp: random data points, rp: random points, kmeanspp: k-means++, ns: naive sharding
-            iterations: 1, 
-            K: 100.0, 
+            K: 100.0,  # reciprocal of temperature in softmax
             num_clusters: 64,
-            detach_coeff: true,
-            eps: 0.01,
             fix_init: true,
             channels: 64, 
-            normalize_input: true, 
-            normalize_init: true, 
-            show_cur_iter: false, 
-            alpha: 1.0, 
-            minibatch: 'sculley-like',
             V_count_init: 1.0,
-            detach_uv_dist: false,
         },
-        feat_cluster_type: 'out_conv', # can be 'input3x3', 'input', 'out_conv', 'out_conv_identity', 'out_conv_another3x3conv'
-        out_feat_flatten: true,
-        avgpool: true,
         y_branch_stage: 2
     }
     classifier: linear-classifier 

@@ -6,8 +6,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from .models import register,make
-from .featcluster_minibatch import FeatureClusteringMinibatch
-from .self_attention import Transformer
+
 
 
 @register('convnet4-basic-block')
@@ -27,7 +26,7 @@ class ConvBlock(nn.Module):
         if self.use_self_attention:
             
             # Cell feature relation modeling layer
-            self.transformer = Transformer(**self.self_attention_kwargs)
+            self.transformer = make('constell-attention',**self.self_attention_kwargs)
             
             # Positional encoding layer
             self.pe = make(self.self_attention_kwargs['positional_encoding'],\
@@ -35,8 +34,8 @@ class ConvBlock(nn.Module):
    
         if self.use_feat_cluster:      
             
-            # Cell feature clustering layer 
-            self.feat_cluster = FeatureClusteringMinibatch(**self.feat_cluster_kwargs)
+            # Feature clustering layer.
+            self.feat_cluster = make('constell-clustering',**self.feat_cluster_kwargs)
             
             # Merging layer.
             self.merge = nn.Conv2d(out_channels + self.feat_cluster_kwargs['num_clusters'], out_channels, kernel_size=1, stride=1, padding=0, bias=False)  
@@ -100,7 +99,7 @@ class ConvNet4FeatCluster(nn.Module):
                  branch1_use_self_attention_list =[False, False, False, False],
                  branch2_use_self_attention_list=[False, False, False, False],
                  self_attention_kwargs={},
-                 feat_cluster_kwargs={}, y_branch_stage=0,**kwargs):
+                 feat_cluster_kwargs={}, y_branch_stage=0):
 
         super().__init__()
         channels = [h_dim, h_dim, z_dim, z_dim]# 64, 64, 64, 64
@@ -182,14 +181,11 @@ class ConvNet4FeatCluster(nn.Module):
         # Feature average pooling 
         x = x.mean(-1).mean(-1)
         
-        # Feature flatten
-        out = x.view(x.shape[0], -1)
-
         # Return if enable side output.
         if sideout:
-            return out, sideout_dict
+            return x, sideout_dict
         else:
-            return out
+            return x
 
 
 
