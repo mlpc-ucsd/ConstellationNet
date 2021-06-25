@@ -148,8 +148,9 @@ def main(config):
                     logits_list.append(methods_logits.view(-1, n_way))
 
                 # Calculate the accuracy and loss.
-#                     logits = np.add.reduce(logits_list)
+#                 logits = np.add.reduce(logits_list)
                 logits = sum(logits_list)
+                
                 label = fs.make_nk_label(n_way, n_query,
                         ep_per_batch=ep_per_batch).cuda()
                 loss = F.cross_entropy(logits, label)
