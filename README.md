@@ -7,7 +7,7 @@ This repository contains the official code and pretrained models for [Attentiona
 For more details, please refer to [Attentional Constellation Nets For Few-shot Learning](https://openreview.net/pdf?id=vujTf_I8Kmc) by [Weijian Xu*](https://weijianxu.com/), [Yifan Xu*](https://yfxu.com/), Huaijin Wang*, and [Zhuowen Tu](https://pages.ucsd.edu/~ztu/).
 
 ## Performance
-1. Mini-ImageNet (ImageNet dataset)
+1. Mini-ImageNet 
 
 | Model| Backbone | Acc@ 5-way 1-shot | Acc@ 5-way 5-shot| #Params |
 | --- | --- | --- | --- | --- |
