@@ -33,7 +33,7 @@ For more details, please refer to [Attentional Constellation Nets For Few-shot L
 
 ## Changelog
 
-06/25/2021: Code and pre-trained checkpoint for ConstellationNet are released.
+06/25/2021: Code for ConstellationNet are released.
 
 ## Usage
 
