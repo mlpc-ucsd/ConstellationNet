@@ -101,9 +101,13 @@ We provide the Constellation Nets checkpoints pre-trained on the Mini-Imagenet, 
 
 ## Citation
 ```
-@article{xuattentional,
-  title={ATTENTIONAL CONSTELLATION NETS FOR FEW-SHOT LEARNING},
-  author={Xu, Weijian and Xu, Yifan and Wang, Huaijin and Tu, Zhuowen}
+@inproceedings{
+xu2021attentional,
+title={Attentional Constellation Nets for Few-Shot Learning},
+author={Weijian Xu and yifan xu and Huaijin Wang and Zhuowen Tu},
+booktitle={International Conference on Learning Representations},
+year={2021},
+url={https://openreview.net/forum?id=vujTf_I8Kmc}
 }
 ```
 
