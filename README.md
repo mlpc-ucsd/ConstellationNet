@@ -66,8 +66,30 @@ For more details, please refer to [Attentional Constellation Nets For Few-shot L
    ```
 
 2. Download datasets
-   ```bash
-   ```
+   - [Mini-ImageNet](https://drive.google.com/file/d/1fJAK5WZTjerW7EWHHQAR9pRJVNg1T1Y7/view?usp=sharing) (courtesy of [Spyros Gidaris](https://github.com/gidariss/FewShotWithoutForgetting))
+   - [CIFAR-FS](https://drive.google.com/file/d/1GjGMI0q3bgcpcB_CjI40fX54WgLPuTpS/view?usp=sharing) (courtesy of [Kwonjoon Lee](https://github.com/kjunelee/MetaOptNet))
+   - [FC100](https://drive.google.com/file/d/1_ZsLyqI487NRDQhwvI7rg86FK3YAZvz1/view?usp=sharing) (courtesy of [Kwonjoon Lee](https://github.com/kjunelee/MetaOptNet))
+   The code assumes datasets are saved according to the following structure:
+   
+```
+ materials
+├── mini-imagenet
+│   ├── miniImageNet_category_split_test.pickle
+│   ├── miniImageNet_category_split_train_phase_test.pickle
+│   ├── miniImageNet_category_split_train_phase_train.pickle
+│   ├── miniImageNet_category_split_train_phase_val.pickle
+│   ├── miniImageNet_category_split_val.pickle
+├── cifar-fs
+│   ├── CIFAR_FS_test.pickle
+│   ├── CIFAR_FS_train.pickle
+│   ├── CIFAR_FS_val.pickle
+├── fc100
+│   ├── FC100_test.pickle
+│   ├── FC100_train.pickle
+│   ├── FC100_val.pickle
+
+```
+
 
 ### Evaluate Pre-trained Checkpoint
 
@@ -81,7 +103,6 @@ We provide the Constellation Nets checkpoints pre-trained on the Mini-Imagenet, 
 | CIFAR-FS | ConstellationNets | Conv-4 | 69.0 ± 0.3 | 82.7 ± 0.2 | 200K |  |  |
 | CIFAR-FS | ConstellationNets | ResNet-12 | 75.7 ± 0.2 | 87.3 ± 0.2 | 8.4M | |  |
 | FC100 | ConstellationNets | ResNet-12 | 43.5 ± 0.2 | 59.4 ± 0.2 | 8.4M | | |
-
 
 
    
