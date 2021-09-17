@@ -72,12 +72,11 @@ class FeatureClusteringMinibatch(nn.Module):
             
             # Calculate v_k', sum_i(m_ik*u_i).
             cur_V = Coeff.transpose(0,1).mm(U)/Coeff.sum(0).view(-1,1) # Shape: [#clusters, C].
-#             cur_V = Coeff.transpose(0,1).mm(U) # Shape: [#clusters, C].
+
             # Gradually change cluster center.
             delta_count = Coeff.sum(0).double()
             V_count += delta_count
             alpha_vec = (delta_count / V_count).float().view(-1, 1)  # Shape: [#clusters, 1].
-#             alpha_vec = (1.0 / V_count).float().view(-1, 1)  # Shape: [#clusters, 1].
             V = (1-alpha_vec)*V + alpha_vec*cur_V
             
             # Update V and counter

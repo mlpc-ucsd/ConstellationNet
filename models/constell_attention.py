@@ -67,8 +67,7 @@ class MHAtt(nn.Module):
             scores = scores.masked_fill(mask, -1e9)
 
         att_map = F.softmax(scores, dim=-1)
-        
-        att_info = {'att_map':att_map, 'query':query, 'key':key, 'value': value}
+
         
         att_map = self.dropout(att_map)
         
@@ -148,7 +147,7 @@ class SA(nn.Module):
         q, k = q.view(shape['B'], -1, self.embedding_size), k.view(shape['B'], -1, self.embedding_size)
         v = x.view(shape['B'], -1, self.embedding_size)
         
-        v_temp = v
+        
         
         atted = self.mhatt(q, k , v)
             
