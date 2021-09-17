@@ -11,29 +11,29 @@ For more details, please refer to [Attentional Constellation Nets For Few-shot L
 
 | Model| Backbone | Acc@ 5-way 1-shot | Acc@ 5-way 5-shot| #Params |
 | --- | --- | --- | --- | --- |
-| ConstellationNets | Conv-4 | 59.52 ± 0.23 | 75.65 ± 0.18 | 200K |
-| ConstellationNets | ResNet-12 | 65.07 ± 0.23 | 80.38 ± 0.16 | 8.4M |
+| ConstellationNets | Conv-4 | 59.67 ± 0.23 | 75.98 ± 0.18 | 200K |
+| ConstellationNets | ResNet-12 | 65.53 ± 0.23 | 80.55 ± 0.16 | 8.4M |
 
 2. CIFAR-FS 
 
 | Model| Backbone | Acc@ 5-way 1-shot | Acc@ 5-way 5-shot| #Params |
 | --- | --- | --- | --- | --- |
-| ConstellationNets | Conv-4 | 69.0 ± 0.3 | 82.7 ± 0.2 | 200K |
-| ConstellationNets | ResNet-12 | 75.7 ± 0.2 | 87.3 ± 0.2 | 8.4M |
+| ConstellationNets | Conv-4 | 69.1 ± 0.3 | 83.0 ± 0.2 | 200K |
+<!-- | ConstellationNets | ResNet-12 | 75.7 ± 0.2 | 87.3 ± 0.2 | 8.4M |
 
 
 3. FC100 
 
 | Model| Backbone | Acc@ 5-way 1-shot | Acc@ 5-way 5-shot| #Params |
 | --- | --- | --- | --- | --- |
-| ConstellationNets | ResNet-12 | 43.5 ± 0.2 | 59.4 ± 0.2 | 8.4M |
+| ConstellationNets | ResNet-12 | 43.5 ± 0.2 | 59.4 ± 0.2 | 8.4M | -->
 
 
 
 
 ## Changelog
 
-06/25/2021: Code for ConstellationNet are released.
+09/17/2021: Code for ConstellationNet are released.
 
 ## Usage
 
@@ -98,11 +98,11 @@ We provide the Constellation Nets checkpoints pre-trained on the Mini-Imagenet, 
 
 | Dataset | Model| Backbone | Acc@ 5-way 1-shot | Acc@ 5-way 5-shot| #Params | SHA-256 (first 8 chars) | URL |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Mini-ImageNet | ConstellationNets | Conv-4 | 59.52 ± 0.23 | 75.65 ± 0.18 | 200K |   |   |
-| Mini-ImageNet | ConstellationNets | ResNet-12 | 65.07 ± 0.23 | 80.38 ± 0.16 | 8.4M |  |   |
-| CIFAR-FS | ConstellationNets | Conv-4 | 69.0 ± 0.3 | 82.7 ± 0.2 | 200K |  |  |
-| CIFAR-FS | ConstellationNets | ResNet-12 | 75.7 ± 0.2 | 87.3 ± 0.2 | 8.4M | |  |
-| FC100 | ConstellationNets | ResNet-12 | 43.5 ± 0.2 | 59.4 ± 0.2 | 8.4M | | |
+| Mini-ImageNet | ConstellationNets | Conv-4 | 59.67 ± 0.23 | 75.98 ± 0.18 | 200K |   |   |
+| Mini-ImageNet | ConstellationNets | ResNet-12 | 65.53 ± 0.23 | 80.55 ± 0.16 | 8.4M |  |   |
+| CIFAR-FS | ConstellationNets | Conv-4 | 69.1 ± 0.3 | 83.0 ± 0.2 | 200K |  |  |
+<!-- | CIFAR-FS | ConstellationNets | ResNet-12 | 75.7 ± 0.2 | 87.3 ± 0.2 | 8.4M | |  |
+| FC100 | ConstellationNets | ResNet-12 | 43.5 ± 0.2 | 59.4 ± 0.2 | 8.4M | | | -->
 
 
    
