@@ -25,7 +25,10 @@ class MergeBlock(nn.Module):
         super().__init__() 
    
         # global settings.
-        self.use_feat_cluster = use_feat_cluster
+        if isinstance(use_feat_cluster, dict):
+            self.use_feat_cluster = use_feat_cluster['use_feat_cluster']
+        else:
+            self.use_feat_cluster = use_feat_cluster
         self.use_self_attention = use_self_attention
         self.self_attention_kwargs = self_attention_kwargs
         self.feat_cluster_kwargs = feat_cluster_kwargs
@@ -36,10 +39,13 @@ class MergeBlock(nn.Module):
             
             # Cell feature relation modeling layer
             self.transformer = make('constell-attention',**self.self_attention_kwargs)
+#             self.transformer = make('constell-attention',embedding_size=feat_cluster_kwargs['num_clusters'],**self.self_attention_kwargs)
             
             # Positional encoding layer
             self.pe = make(self.self_attention_kwargs['positional_encoding'],\
                       num_pos_feats=self_attention_kwargs['embedding_size']//2)
+#             self.pe = make('sine_pe',\
+#                       num_pos_feats=feat_cluster_kwargs['num_clusters']//2)
             
          
         if self.use_feat_cluster:
@@ -190,7 +196,7 @@ class ResNet12(nn.Module):
                  branch2_use_self_attention_list=[],
                  self_attention_kwargs= {},
                  feat_cluster_kwargs={}, feat_cluster_type='input3x3', retain_last_activation=True,
-                 drop_rate=0.0, dropblock_size=5, sideout_classifier=False, y_branch_stage=0):
+                 drop_rate=0.0, dropblock_size=5, sideout_classifier=False, y_branch_stage=0,**kwargs):
 
         super().__init__()
         self.n = len(channels)

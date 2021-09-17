@@ -23,6 +23,6 @@ def load(model_sv, name=None):
     if name is None:
         name = 'model'
     model = make(model_sv[name], **model_sv[name + '_args'])
-    model.load_state_dict(model_sv[name + '_sd'],strict=False)
+    model.load_state_dict(model_sv[name + '_sd'])
     return model
 

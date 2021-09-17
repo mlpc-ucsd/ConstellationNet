@@ -11,4 +11,5 @@ save/
 save
 materials/*
 visualization/data/
-
+scripts_old/
+*_old.py

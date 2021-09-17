@@ -8,7 +8,6 @@ import numpy as np
 import scipy.stats
 from tqdm import tqdm
 from torch.utils.data import DataLoader
-from sklearn.metrics import roc_auc_score
 import os 
 import datasets
 import models
@@ -94,9 +93,9 @@ def main(config):
                 
                 # Get settings for features to be extracted.
                 method_i_list = args.method.split(',')         # Always use the method from arguments.
-                logits_coeff_list = map(eval, args.logits_coeff_list.split(','))  # Note: eval() is dangerous. Be careful when use it.
+                logits_coeff_list = list(map(eval, args.logits_coeff_list.split(',')))  # Note: eval() is dangerous. Be careful when use it.
                 
-                branch_list = map(int, args.branch_list.split(','))
+                branch_list = list(map(int, args.branch_list.split(',')))
 
                 feat_source_list = args.feat_source_list.split(',') # Use feature source list only when side outputs are enabled.
 
@@ -143,13 +142,11 @@ def main(config):
                     # Accumulate logits for current model.
                     method_logits_list.append(logits * logits_coeff)
 
-                    # Accumulate logits for all models.
-                    methods_logits = sum(method_logits_list)  
-                    logits_list.append(methods_logits.view(-1, n_way))
+                # Accumulate logits for all models.
+                logits = sum(method_logits_list).view(-1, n_way)
+                
 
                 # Calculate the accuracy and loss.
-#                 logits = np.add.reduce(logits_list)
-                logits = sum(logits_list)
                 
                 label = fs.make_nk_label(n_way, n_query,
                         ep_per_batch=ep_per_batch).cuda()
@@ -189,16 +186,19 @@ if __name__ == '__main__':
     # Set debug options.
     if args.vscode_debug:
         # Ref: https://vinta.ws/code/remotely-debug-a-python-app-inside-a-docker-container-in-visual-studio-code.html
-        import ptvsd
+        import debugpy
         print("Enabling attach starts.")
-        ptvsd.enable_attach(address=('0.0.0.0', 9310))
-        ptvsd.wait_for_attach()
+#         ptvsd.enable_attach(address=('0.0.0.0', 9310))
+#         ptvsd.wait_for_attach()
+        
+        debugpy.listen(address=('0.0.0.0', 9310))
+        debugpy.wait_for_client()
         print("Enabling attach ends.")
 
     # Load and overwrite configs.
     config = yaml.load(open(args.config, 'r'), Loader=yaml.FullLoader)
     if len(args.gpu.split(',')) > 1:
-        config['_parallel'] = True
+        config['_parallel'] = True  
     if args.load_encoder:  # Overwrite the path of encoder checkpoint to load.
         config['load_encoder'] = args.load_encoder
     if args.load:

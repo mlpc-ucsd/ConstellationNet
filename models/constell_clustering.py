@@ -36,7 +36,7 @@ class FeatureClusteringMinibatch(nn.Module):
         # Calculate UV distance.
         
         # Normalize input.
-        U = F.normalize(U, dim=-1)             # Shape: [N, C].
+        
         V = F.normalize(V, dim=-1)             # Shape: [#clusters, C].
         # Calculate distance.
         UV_dist = U.mm(V.transpose(0, 1))        # Shape: [N, #clusters]. 
@@ -61,7 +61,7 @@ class FeatureClusteringMinibatch(nn.Module):
         assert len(x.shape) == 2
         U = x                         # Shape: [N, C].
         N,C = U.shape       
-        
+        U = F.normalize(U, dim=-1)             # Shape: [N, C].
         # Calculate distance map
         UV_dist = self.compute_dist(U,V)
         
@@ -71,11 +71,13 @@ class FeatureClusteringMinibatch(nn.Module):
             
             
             # Calculate v_k', sum_i(m_ik*u_i).
-            cur_V = Coeff.transpose(0,1).mm(U) # Shape: [#clusters, C].
-            
+            cur_V = Coeff.transpose(0,1).mm(U)/Coeff.sum(0).view(-1,1) # Shape: [#clusters, C].
+#             cur_V = Coeff.transpose(0,1).mm(U) # Shape: [#clusters, C].
             # Gradually change cluster center.
-            V_count += Coeff.sum(0).double()
-            alpha_vec = (1.0 / V_count).float().view(-1, 1)  # Shape: [#clusters, 1].
+            delta_count = Coeff.sum(0).double()
+            V_count += delta_count
+            alpha_vec = (delta_count / V_count).float().view(-1, 1)  # Shape: [#clusters, 1].
+#             alpha_vec = (1.0 / V_count).float().view(-1, 1)  # Shape: [#clusters, 1].
             V = (1-alpha_vec)*V + alpha_vec*cur_V
             
             # Update V and counter
