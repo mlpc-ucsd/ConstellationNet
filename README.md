@@ -6,6 +6,10 @@ This repository contains the official code and pretrained models for [Attentiona
 
 For more details, please refer to [Attentional Constellation Nets For Few-shot Learning](https://openreview.net/pdf?id=vujTf_I8Kmc) by [Weijian Xu*](https://weijianxu.com/), [Yifan Xu*](https://yfxu.com/), Huaijin Wang*, and [Zhuowen Tu](https://pages.ucsd.edu/~ztu/).
 
+
+<img src="./fig/ConstellationNets.svg">
+
+
 ## Performance
 1. Mini-ImageNet 
 
@@ -19,14 +23,14 @@ For more details, please refer to [Attentional Constellation Nets For Few-shot L
 | Model| Backbone | Acc@ 5-way 1-shot | Acc@ 5-way 5-shot| #Params |
 | --- | --- | --- | --- | --- |
 | ConstellationNets | Conv-4 | 69.1 ± 0.3 | 83.0 ± 0.2 | 200K |
-<!-- | ConstellationNets | ResNet-12 | 75.7 ± 0.2 | 87.3 ± 0.2 | 8.4M |
+| ConstellationNets | ResNet-12 | 76.1 ± 0.2 | 87.4 ± 0.2 | 8.4M |
 
 
 3. FC100 
 
 | Model| Backbone | Acc@ 5-way 1-shot | Acc@ 5-way 5-shot| #Params |
 | --- | --- | --- | --- | --- |
-| ConstellationNets | ResNet-12 | 43.5 ± 0.2 | 59.4 ± 0.2 | 8.4M | -->
+| ConstellationNets | ResNet-12 | 43.9 ± 0.2 | 59.7 ± 0.2 | 8.4M |
 
 
 
@@ -98,11 +102,11 @@ We provide the Constellation Nets checkpoints pre-trained on the Mini-Imagenet, 
 
 | Dataset | Model| Backbone | Acc@ 5-way 1-shot | Acc@ 5-way 5-shot| #Params | SHA-256 (first 8 chars) | URL |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Mini-ImageNet | ConstellationNets | Conv-4 | 59.67 ± 0.23 | 75.98 ± 0.18 | 200K |   |   |
-| Mini-ImageNet | ConstellationNets | ResNet-12 | 65.53 ± 0.23 | 80.55 ± 0.16 | 8.4M |  |   |
-| CIFAR-FS | ConstellationNets | Conv-4 | 69.1 ± 0.3 | 83.0 ± 0.2 | 200K |  |  |
-<!-- | CIFAR-FS | ConstellationNets | ResNet-12 | 75.7 ± 0.2 | 87.3 ± 0.2 | 8.4M | |  |
-| FC100 | ConstellationNets | ResNet-12 | 43.5 ± 0.2 | 59.4 ± 0.2 | 8.4M | | | -->
+| Mini-ImageNet | ConstellationNets | Conv-4 | 59.67 ± 0.23 | 75.98 ± 0.18 | 200K | d76075a5  | [model](https://vcl.ucsd.edu/constellation/mini_conv4/max-f-va.pth)  |
+| Mini-ImageNet | ConstellationNets | ResNet-12 | 65.53 ± 0.23 | 80.55 ± 0.16 | 8.4M | cf716d90 | [model](https://vcl.ucsd.edu/constellation/mini_res12/max-f-va.pth)  |
+| CIFAR-FS | ConstellationNets | Conv-4 | 69.1 ± 0.3 | 83.0 ± 0.2 | 200K | 4ea590f9 | [model](https://vcl.ucsd.edu/constellation/cifar_conv4/max-f-va.pth)  |
+| CIFAR-FS | ConstellationNets | ResNet-12 | 76.1 ± 0.2 | 87.4 ± 0.2 | 8.4M | dc5d56fa|[model](https://vcl.ucsd.edu/constellation/cifar_res12/max-f-va.pth)  |
+| FC100 | ConstellationNets | ResNet-12 | 43.9 ± 0.2 | 59.7 ± 0.2 | 8.4M | d9a829f7 | [model](https://vcl.ucsd.edu/constellation/fc100_res12/max-f-va.pth)|
 
 
    
@@ -136,3 +140,5 @@ url={https://openreview.net/forum?id=vujTf_I8Kmc}
 This repository is released under the Apache License 2.0. License can be found in [LICENSE](LICENSE) file.
 
 ## Acknowledgment
+- Thanks to [Few-shot Meta-Baseline](https://github.com/yinboc/few-shot-meta-baseline) for the implementation of [Meta-Baseline](https://arxiv.org/pdf/2003.04390.pdf)
+- Thanks to [Synchronized-BatchNorm-PyTorch](https://github.com/vacancy/Synchronized-BatchNorm-PyTorch) for providing the tool to synchronize batchnorm statistics when training models with multi-GPUs.
