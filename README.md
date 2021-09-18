@@ -1,38 +1,13 @@
 # Attentional Constellation Nets For Few-shot Learning
 
 ## Introduction
-This repository contains the official code and pretrained models for [Attentional Constellation Nets For Few-shot Learning](https://openreview.net/pdf?id=vujTf_I8Kmc). It enhance structured features by expanding CNNs with a Constellation model, which performs (1) cell feature clustering and encoding with a dense part representation (2) cell feature relation modeling by self-attention mechanism, for the few-shot learning task
+This repository contains the official code and pretrained models for [Attentional Constellation Nets For Few-shot Learning (ICLR 2021)](https://openreview.net/pdf?id=vujTf_I8Kmc). In this paper, we tackle the few-shot learning problem and make an effort to enhance structured features by expanding CNNs with a constellation model, which performs cell feature clustering and encoding with a dense part representation; the relationships among the cell features are further modeled by an attention mechanism. With the additional constellation branch to increase the awareness of object parts, our method is able to attain the advantages of the CNNs while making the overall internal representations more robust in the few-shot learning setting. Our approach attains a significant improvement over the existing methods in few-shot learning on the CIFAR-FS, FC100, and mini-ImageNet benchmarks.
 
 
 For more details, please refer to [Attentional Constellation Nets For Few-shot Learning](https://openreview.net/pdf?id=vujTf_I8Kmc) by [Weijian Xu*](https://weijianxu.com/), [Yifan Xu*](https://yfxu.com/), Huaijin Wang*, and [Zhuowen Tu](https://pages.ucsd.edu/~ztu/).
 
 
 <img src="./fig/ConstellationNets.svg">
-
-
-## Performance
-1. Mini-ImageNet 
-
-| Model| Backbone | Acc@ 5-way 1-shot | Acc@ 5-way 5-shot| #Params |
-| --- | --- | --- | --- | --- |
-| ConstellationNets | Conv-4 | 59.67 ± 0.23 | 75.98 ± 0.18 | 200K |
-| ConstellationNets | ResNet-12 | 65.53 ± 0.23 | 80.55 ± 0.16 | 8.4M |
-
-2. CIFAR-FS 
-
-| Model| Backbone | Acc@ 5-way 1-shot | Acc@ 5-way 5-shot| #Params |
-| --- | --- | --- | --- | --- |
-| ConstellationNets | Conv-4 | 69.1 ± 0.3 | 83.0 ± 0.2 | 200K |
-| ConstellationNets | ResNet-12 | 76.1 ± 0.2 | 87.4 ± 0.2 | 8.4M |
-
-
-3. FC100 
-
-| Model| Backbone | Acc@ 5-way 1-shot | Acc@ 5-way 5-shot| #Params |
-| --- | --- | --- | --- | --- |
-| ConstellationNets | ResNet-12 | 43.9 ± 0.2 | 59.7 ± 0.2 | 8.4M |
-
-
 
 
 ## Changelog
@@ -95,7 +70,7 @@ For more details, please refer to [Attentional Constellation Nets For Few-shot L
 ```
 
 
-### Evaluate Pre-trained Checkpoint
+### Pre-trained Checkpoints
 
 We provide the Constellation Nets checkpoints pre-trained on the Mini-Imagenet, CIFAR-FS and FC100.
 
