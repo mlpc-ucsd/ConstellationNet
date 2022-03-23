@@ -13,3 +13,5 @@ materials/*
 visualization/data/
 scripts_old/
 *_old.py
+raw-pacs/
+.idea
