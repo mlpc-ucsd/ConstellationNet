@@ -9,12 +9,12 @@ from torchvision import transforms
 from .datasets import register
 
 
-@register('cifar-fs')
-class CIFAR_FS(Dataset):
+@register('pacs')
+class PACS(Dataset):
 
     def __init__(self, root_path, split='train', **kwargs):
         split_tag = split
-        split_file = 'CIFAR_FS_{}.pickle'.format(split_tag)
+        split_file = 'PACS_{}.pickle'.format(split_tag)
 
         with open(os.path.join(root_path, split_file), 'rb') as f:
             pack = pickle.load(f, encoding='latin1')

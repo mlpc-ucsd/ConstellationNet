@@ -48,6 +48,8 @@ For more details, please refer to [Attentional Constellation Nets For Few-shot L
    - [Mini-ImageNet](https://drive.google.com/file/d/1fJAK5WZTjerW7EWHHQAR9pRJVNg1T1Y7/view?usp=sharing) (courtesy of [Spyros Gidaris](https://github.com/gidariss/FewShotWithoutForgetting))
    - [CIFAR-FS](https://drive.google.com/file/d/1GjGMI0q3bgcpcB_CjI40fX54WgLPuTpS/view?usp=sharing) (courtesy of [Kwonjoon Lee](https://github.com/kjunelee/MetaOptNet))
    - [FC100](https://drive.google.com/file/d/1_ZsLyqI487NRDQhwvI7rg86FK3YAZvz1/view?usp=sharing) (courtesy of [Kwonjoon Lee](https://github.com/kjunelee/MetaOptNet))
+   - [PACS](https://1drv.ms/u/s!AtQiLT3Xe-I1px6Vho4tim4AmB3i) (only photo classification)
+   
    The code assumes datasets are saved according to the following structure:
    
 ```
@@ -66,7 +68,10 @@ For more details, please refer to [Attentional Constellation Nets For Few-shot L
 │   ├── FC100_test.pickle
 │   ├── FC100_train.pickle
 │   ├── FC100_val.pickle
-
+├── pacs
+│   ├── PACS_test.pickle
+│   ├── PACS_train.pickle
+│   ├── PACS_val.pickle
 ```
 
 

@@ -1,0 +1,59 @@
+name: conv4-ybranch-pacs
+train_dataset: pacs
+train_dataset_args: {split: train, aug: lee}
+val_dataset: pacs
+val_dataset_args: {split: val, aug: lee}
+
+fs_dataset_train: pacs
+fs_dataset_train_args: {split: train, aug: lee}
+fs_dataset_val: pacs
+fs_dataset_val_args: {split: val, aug: lee}
+
+model: classifier-sideout-class-meta
+model_args:
+    encoder: convnet4-featcluster-minibatch-sideout-classifier-ybranch-param-reduced
+    encoder_args:  {
+        stem_use_feat_cluster_list: [true, true],
+        branch1_use_feat_cluster_list: [true, true],
+        branch2_use_feat_cluster_list: [false, false],
+        stem_use_self_attention_list: [false, false],
+        branch1_use_self_attention_list: [true, true],
+        branch2_use_self_attention_list: [false, false],
+        self_attention_kwargs: {
+           multi_head: 8,
+           positional_encoding: 'sine_pe',
+           embedding_size: 64,
+           pre_normalize: false,
+           },
+        feat_cluster_kwargs: {
+            K: 100.0, 
+            num_clusters: 64,
+            fix_init: true,
+            channels: 64, 
+            V_count_init: 1.0,
+        },
+        y_branch_stage: 2
+    }
+    classifier: linear-classifier 
+    classifier_args: {n_classes: 64}
+    sideout_info: []
+
+train_branch_1: True
+train_branch_2: True
+eval_val: True
+eval_fs: True
+
+# classification hyperparameters
+batch_size: 128
+max_epoch: 60
+
+# few-shot hyperparameters
+n_way: 5
+n_shot: 1
+n_train_shot: 3
+n_query: 6
+train_batches: 1000
+ep_per_batch: 8
+
+opt: lee
+save_epoch: 5
