@@ -19,11 +19,8 @@ class CIFAR_FS(Dataset):
         with open(os.path.join(root_path, split_file), 'rb') as f:
             pack = pickle.load(f, encoding='latin1')
 
-        print(type(pack))
         data = pack['data']
         label = pack['labels']
-        print(type(data))
-        print(type(label))
 
         data = [Image.fromarray(x) for x in data]  # FIXME: Need to check the image size.
 
