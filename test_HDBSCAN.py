@@ -20,6 +20,7 @@ cluster = hdbscan.HDBSCAN(min_cluster_size=5, gen_min_span_tree=True)
 cluster.fit(test_data)
 
 print(cluster)
+print(cluster)
 
 cluster.minimum_spanning_tree_.plot(edge_cmap='viridis',
                                       edge_alpha=0.6,
