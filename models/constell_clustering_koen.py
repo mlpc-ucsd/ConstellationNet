@@ -3,6 +3,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from .models import register
+import time
 
 import hdbscan
 
@@ -54,6 +55,7 @@ class FeatureClusteringMinibatch(nn.Module):
         # # Note: The clone is a must! Or the tensor will get updated.
         # V_count = self.V_count_buffer.detach().clone()
         #
+
         # Check input.
         assert len(x.shape) == 2
         U = x  # Shape: [N, C].
@@ -72,11 +74,14 @@ class FeatureClusteringMinibatch(nn.Module):
         # print("Numpy UV_dist", UV_dist)
 
         # Output
+        start_time = time.time()
         print("Clustering now")
         self.clusterer.fit(U)
         print("Fitted the data")
-        output = hdbscan.all_points_membership_vectors(clusterer)
+        output = hdbscan.all_points_membership_vectors(self.clusterer)
+        end_time = time.time()
         print('Output!!!!!!!!!!!!!!!!!!!')
+        print("Time it took: ", (end_time-start_time))
         print('Test shape UV_dist:', output.shape)
         print(output)
 
